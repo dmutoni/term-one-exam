@@ -43,8 +43,8 @@ public class CityControllerIntegrationTest {
     public void getById_404() {
         ResponseEntity<APICustomResponse> response = restTemplate.getForEntity("/api/cities/id/200", APICustomResponse.class);
 
-//        assertTrue(response.getBody().isStatus());
-//        assertEquals("City not found with id 200", response.getBody().getMessage());
+        assertTrue(response.getBody().isStatus());
+        assertEquals("City not found with id 200", response.getBody().getMessage());
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
@@ -53,7 +53,6 @@ public class CityControllerIntegrationTest {
         City city =  new City("nyabihu",300);
         ResponseEntity<City> response = this.restTemplate.postForEntity("/api/cities/add", city, City.class);
 
-        System.out.println("=================================="+response);
         assertEquals(201, response.getStatusCodeValue());
 //        assertEquals("Nyabihu", response.getBody().getName());
     }

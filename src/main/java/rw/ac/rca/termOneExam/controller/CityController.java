@@ -27,15 +27,17 @@ public class CityController {
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<?> getById(@PathVariable(name = "id") long id) {
+		try {
+			Optional<City> city = cityService.getById(id);
 
-		Optional<City> city = cityService.getById(id);
-
-		if (city.isPresent()) {
+//			if (city.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(city.get());
-		}
+//			}
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new APICustomResponse(false, "City not found with id " + id));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new APICustomResponse(false, "City not found with id " + id));
+		}
 	}
 
 	@GetMapping("/all")
