@@ -17,13 +17,23 @@ public class CityService {
 	private ICityRepository cityRepository;
 	
 	public Optional<City> getById(long id) {
-		
-		return cityRepository.findById(id);
+		Optional<City> cityOptional = cityRepository.findById(id);
+		if(cityOptional.isPresent()) {
+			City city = cityOptional.get();
+			city.setFahrenheit((city.getWeather()*1.8)+32);
+			return cityOptional;
+		}
+		throw new RuntimeException("city with this id not found");
+//		return cityRepository.findById(id);
 	}
 
 	public List<City> getAll() {
-		
-		return cityRepository.findAll();
+		List<City> cities = cityRepository.findAll();
+		for(City city:cities) {
+			city.setFahrenheit((city.getWeather()*1.8)+32);
+		}
+		return cities;
+//		return cityRepository.findAll();
 	}
 
 	public boolean existsByName(String name) {
@@ -32,9 +42,11 @@ public class CityService {
 	}
 
 	public City save(CreateCityDTO dto) {
-		City city =  new City(dto.getName(), dto.getWeather());
-		return cityRepository.save(city);
+		if(!existsByName(dto.getName())){
+			City city =  new City(dto.getName(), dto.getWeather());
+			city.setFahrenheit((dto.getWeather()*1.8)+32);
+			return cityRepository.save(city);
+		}
+		throw new RuntimeException("city name already exists");
 	}
-	
-
 }

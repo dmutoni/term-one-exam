@@ -6,6 +6,11 @@ public class CreateCityDTO {
 
 	private double weather;
 
+	public CreateCityDTO(String name, int weather) {
+		this.name = name;
+		this.weather = weather;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -21,5 +26,6 @@ public class CreateCityDTO {
 	public void setWeather(double weather) {
 		this.weather = weather;
 	}
+
 
 }

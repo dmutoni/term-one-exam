@@ -48,6 +48,7 @@ public class CityController {
 	public ResponseEntity<?> saveItem(@RequestBody CreateCityDTO dto) {
 
 		if (cityService.existsByName(dto.getName())) {
+
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new APICustomResponse(false, "City name " + dto.getName() + " is registered already"));
 		}

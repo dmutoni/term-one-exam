@@ -37,7 +37,12 @@ public class City {
 		this.weather = weather;
 		this.fahrenheit = fahrenheit;
 	}
-
+	public City(String name, double weather, double fahrenheit) {
+		super();
+		this.name = name;
+		this.weather = weather;
+		this.fahrenheit = fahrenheit;
+	}
 
 	public long getId() {
 		return id;
